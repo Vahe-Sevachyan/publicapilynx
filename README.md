@@ -1,3 +1,3 @@
 # Public Api Lynx
 
-Browse through public API's and find inspiraton for your next project.
+Browse through public API's and find inspiration for your next project.

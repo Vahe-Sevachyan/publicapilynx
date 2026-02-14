@@ -6,23 +6,40 @@
     <p v-if="error">{{ error }}</p>
     <button @click="fetchData">Get New API</button>
   </div>
-  <DisplayData
-    :title="posts.title"
-    :documentation="posts.documentation"
-    :description="posts.description"
-    :emoji="posts.emoji"
-    :health="posts.health"
+  <DisplayNewAPi
+    :title="newApiData.title"
+    :documentation="newApiData.documentation"
+    :description="newApiData.description"
+    :emoji="newApiData.emoji"
+    :health="newApiData.health"
   />
+  <button v-on:click="handleSaveApi">Save</button>
+  <div class="card-grid">
+    <GridCards v-for="savedList in savedApiDataList" :key="savedList.id" :newAPI="savedList" />
+  </div>
 </template>
 
 <script setup>
-import DisplayData from './DisplayData.vue'
+import DisplayNewAPi from './components/DisplayNewAPi.vue'
 import { ref, onMounted } from 'vue'
-
-const posts = ref([])
+import GridCards from './components/GridCards.vue'
+const newApiData = ref([])
+const savedApiDataList = ref([])
 const error = ref(null)
 const loading = ref(true)
 
+function handleSaveApi() {
+  savedApiDataList.value.push({
+    title: newApiData.value.title,
+    id: newApiData.value.id,
+    emoji: newApiData.value.emoji,
+    description: newApiData.value.description,
+    documentation: newApiData.value.documentation,
+  })
+  // console.log(savedApiDataList.value.title)
+}
+
+// console.log(newApiData.value)
 const fetchData = () => {
   fetch('https://www.freepublicapis.com/api/random')
     .then((response) => {
@@ -32,9 +49,9 @@ const fetchData = () => {
       return response.json()
     })
     .then((data) => {
-      posts.value = data
-      console.log(posts)
-      if (posts.value.title.includes('Lucifer')) {
+      newApiData.value = data
+      // console.log(newApiData)
+      if (newApiData.value.title.includes('Lucifer')) {
         fetchData()
       }
     })
