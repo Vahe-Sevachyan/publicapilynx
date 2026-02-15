@@ -13,16 +13,26 @@
     :emoji="newApiData.emoji"
     :health="newApiData.health"
   />
-  <button v-on:click="handleSaveApi">Save</button>
-  <div class="card-grid">
-    <GridLayout v-for="savedList in savedApiDataList" :key="savedList.id" :newAPI="savedList" />
+  <div class="button-container">
+    <button @click="handleSaveApi">Save</button>
+    <button @click="clearAllLocalStorage">Delete All</button>
+  </div>
+
+  <div id="grid-cards">
+    <ApiCard
+      class="api-card"
+      v-for="savedList in savedApiDataList"
+      :key="savedList.id"
+      :newAPI="savedList"
+      @removeFromLocalStorage="removeFromLocalStorage"
+    />
   </div>
 </template>
 
 <script setup>
 import DisplayNewAPi from './components/DisplayNewAPi.vue'
 import { ref, onMounted } from 'vue'
-import GridLayout from './components/GridLayout.vue'
+import ApiCard from './components/ApiCard.vue'
 const newApiData = ref([])
 const savedApiDataList = ref([])
 const error = ref(null)
@@ -36,10 +46,23 @@ function handleSaveApi() {
     description: newApiData.value.description,
     documentation: newApiData.value.documentation,
   })
-  // console.log(savedApiDataList.value.title)
+  saveToLocalStorage()
 }
 
-// console.log(newApiData.value)
+function saveToLocalStorage() {
+  localStorage.setItem(`${newApiData.value.title}`, JSON.stringify(newApiData.value))
+  // const savedApi = JSON.parse(localStorage.getItem(`${newApiData.value.title}`))
+  console.log(localStorage)
+}
+function clearAllLocalStorage() {
+  localStorage.clear()
+  console.log(localStorage)
+}
+function removeFromLocalStorage() {
+  localStorage.removeItem(`${newApiData.value.title}`)
+  console.log('clicked')
+  console.log(localStorage)
+}
 const fetchData = () => {
   fetch('https://www.freepublicapis.com/api/random')
     .then((response) => {
@@ -65,22 +88,30 @@ const fetchData = () => {
 onMounted(() => {
   fetchData()
 })
+
+// const localStorage =
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid black; */
   text-align: center;
   color: #618aca;
+}
+
+#grid-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 button {
   background-color: #282828;
   padding: 0.5rem;
   color: white;
-  width: 130px;
+  width: 140px;
   border-radius: 10px;
   border: 1px solid #282828;
   font-weight: 400;

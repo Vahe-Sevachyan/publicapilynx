@@ -31,6 +31,7 @@ defineProps({
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 400px;
   font-family: 'Nunito', Tahoma, Geneva, Verdana, sans-serif;
 }
 strong {
