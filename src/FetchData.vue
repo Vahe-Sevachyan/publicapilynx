@@ -4,7 +4,7 @@
     <p class="sub-heading">Find API's for your next project</p>
     <p v-if="loading">Loading API's...</p>
     <p v-if="error">{{ error }}</p>
-    <button @click="fetchData">Get New API</button>
+    <button @click="fetchData">New API</button>
   </div>
   <DisplayNewAPi
     :title="newApiData.title"
@@ -15,14 +15,14 @@
   />
   <button v-on:click="handleSaveApi">Save</button>
   <div class="card-grid">
-    <GridCards v-for="savedList in savedApiDataList" :key="savedList.id" :newAPI="savedList" />
+    <GridLayout v-for="savedList in savedApiDataList" :key="savedList.id" :newAPI="savedList" />
   </div>
 </template>
 
 <script setup>
 import DisplayNewAPi from './components/DisplayNewAPi.vue'
 import { ref, onMounted } from 'vue'
-import GridCards from './components/GridCards.vue'
+import GridLayout from './components/GridLayout.vue'
 const newApiData = ref([])
 const savedApiDataList = ref([])
 const error = ref(null)
@@ -68,15 +68,35 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.wrapper {
-  margin: 1;
-}
 .nav {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* border: 1px solid black; */
+  text-align: center;
+  color: #618aca;
+}
+button {
+  background-color: #282828;
+  padding: 0.5rem;
+  color: white;
+  width: 130px;
+  border-radius: 10px;
+  border: 1px solid #282828;
+  font-weight: 400;
+  font-family: 'Nunito', Tahoma, Geneva, Verdana, sans-serif;
+}
+button:hover {
+  border: 1px solid #4077d1;
+  cursor: pointer;
+  transition: 0.3s;
 }
 h1 {
   margin-bottom: 1rem;
+  color: #4077d1;
+  font-size: 35px;
+  font-weight: 200;
+  font-family: 'Nunito', Tahoma, Geneva, Verdana, sans-serif;
 }
 .sub-heading {
   margin-bottom: 1rem;

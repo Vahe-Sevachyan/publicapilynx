@@ -3,7 +3,7 @@ import FetchData from './FetchData.vue'
 </script>
 
 <template>
-  <div class="main-wrapper">
+  <div class="main-wrapper f">
     <div class="wrapper">
       <FetchData />
     </div>
@@ -18,12 +18,10 @@ import FetchData from './FetchData.vue'
   width: 30rem;
   align-items: center;
   margin: auto;
-  /* padding: 1; */
+  padding: 1;
   /* border: 1px solid black; */
   /*background-color: black;*/
 }
 .main-wrapper {
-  /* width: 100vw; */
-  /* background-color: grey; */
 }
 </style>
