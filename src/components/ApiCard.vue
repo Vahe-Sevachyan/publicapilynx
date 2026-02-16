@@ -9,16 +9,22 @@ function handleDeleteAPI() {
 <template>
   <div class="wrapper">
     <div class="title-container">
-      <h1>Title: {{ newAPI.title }}</h1>
+      <h1><strong>Title:</strong> {{ newAPI.title }}</h1>
       <span>{{ newAPI.emoji }}</span>
     </div>
     <div class="data-container">
-      <p><strong>Description:</strong> {{ newAPI.description }}</p>
-      <div>
-        <strong>Source: </strong
+      <div class="discription-container">
+        <strong>Description:</strong>
+        <p>{{ newAPI.description }}</p>
+      </div>
+
+      <div class="link-container">
+        <strong>Docs: </strong
         ><a :href="`${newAPI.documentation}`" target="_blank">{{ newAPI.title }}</a>
       </div>
-      <span><strong>Health:</strong> {{ newAPI.health }}</span>
+      <div class="health-container">
+        <span><strong>Health:</strong> {{ newAPI.health }}</span>
+      </div>
     </div>
     <button v-on:click="handleDeleteAPI">Delete</button>
   </div>
@@ -36,15 +42,41 @@ function handleDeleteAPI() {
   border-radius: 10px;
   padding: 5px;
 }
-
+strong {
+  color: #618aca;
+}
+.discription-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 6px;
+}
+a {
+  text-decoration: underline;
+}
+a:hover {
+  color: gray;
+  transition: 0.9s;
+}
+.discription-container strong {
+  margin-bottom: 4px;
+}
 .title-container {
   display: flex;
   justify-content: space-between;
-  width: 220px;
+  padding: 5px;
   text-align: center;
-  margin: auto;
 }
-
+.health-container {
+  margin-bottom: 6px;
+}
+.title-container h1 {
+  margin-right: 10px;
+}
+.link-container {
+  margin-bottom: 6px;
+}
 button {
   background-color: #282828;
   padding: 0.3rem;

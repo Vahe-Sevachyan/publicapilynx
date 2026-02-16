@@ -8,7 +8,7 @@
       <strong>Description:</strong>
       <p class="description">{{ description }}</p>
       <div class="source">
-        <strong>Source: </strong><a :href="documentation" target="_blank">{{ title }}</a>
+        <strong>Docs: </strong><a :href="documentation" target="_blank">{{ title }}</a>
       </div>
       <span class="health"><strong>Health:</strong> {{ health }}</span>
     </div>
@@ -39,6 +39,13 @@ strong {
 }
 h1 {
   font-size: 28px;
+}
+a {
+  text-decoration: underline;
+}
+a:hover {
+  color: gray;
+  transition: 0.9s;
 }
 .data-container .description {
   margin-bottom: 0.8rem;

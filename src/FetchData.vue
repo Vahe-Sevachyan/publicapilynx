@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <h1>Public API Lynx</h1>
-    <p class="sub-heading">Find API's for your next project</p>
+    <p class="sub-heading">Discover new API's for your next project</p>
     <p v-if="loading">Loading API's...</p>
     <p v-if="error">{{ error }}</p>
     <button @click="fetchData">New API</button>
@@ -15,7 +15,6 @@
   />
   <div class="button-container">
     <button @click="handleSaveApi">Save</button>
-    <button @click="clearAllLocalStorage">Delete All</button>
   </div>
 
   <div id="grid-cards">
@@ -45,38 +44,19 @@ function handleSaveApi() {
     emoji: newApiData.value.emoji,
     description: newApiData.value.description,
     documentation: newApiData.value.documentation,
+    health: newApiData.value.health,
   })
-  // saveToLocalStorage()
-  console.log(savedApiDataList.value)
 }
 
 function handleDeleteApi(index) {
-  console.log(savedApiDataList.value)
-  if (index !== -1) {
-    savedApiDataList.value.splice(index, 1)
+  const confirmDelete = confirm(`Are you sure you want to delete?`)
+  if (confirmDelete) {
+    if (index !== -1) {
+      savedApiDataList.value.splice(index, 1)
+    }
   }
 }
 
-// function saveToLocalStorage() {
-//   localStorage.setItem(`${savedApiDataList.value.title}`, JSON.stringify(savedApiDataList.value))
-//    localStorage.setItem(`${newApiData.value.title}`, JSON.stringify(newApiData.value))
-//   const savedApi = JSON.parse(localStorage.getItem(`${newApiData.value.title}`))
-//   console.log(localStorage)
-// }
-
-// function clearAllLocalStorage() {
-//   localStorage.clear()
-//   console.log(localStorage)
-// }
-
-// function removeFromLocalStorage(index) {
-//   const removeItem = JSON.parse(localStorage.getItem(`${index.title}`))
-//   localStorage.removeItem(`${savedApiDataList.value.title}`)
-//   savedApiDataList.value.splice(removeItem, 1)
-//   const itemtoRemove = JSON.parse(localStorage.getItem(`${index.value.title}`))
-//   console.log(localStorage)
-//   console.log(removeItem)
-// }
 const fetchData = () => {
   fetch('https://www.freepublicapis.com/api/random')
     .then((response) => {
@@ -139,12 +119,13 @@ button:hover {
 h1 {
   margin-bottom: 1rem;
   color: #4077d1;
-  font-size: 35px;
+  font-size: 45px;
   font-weight: 200;
   font-family: 'Nunito', Tahoma, Geneva, Verdana, sans-serif;
 }
 .sub-heading {
   margin-bottom: 1rem;
+  font-size: 20px;
 }
 .sub-heading p {
   margin-bottom: 1rem;
