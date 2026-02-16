@@ -21,10 +21,10 @@
   <div id="grid-cards">
     <ApiCard
       class="api-card"
-      v-for="savedList in savedApiDataList"
+      v-for="(savedList, index) in savedApiDataList"
       :key="savedList.id"
       :newAPI="savedList"
-      @removeFromLocalStorage="removeFromLocalStorage"
+      @deleteApi="handleDeleteApi(index)"
     />
   </div>
 </template>
@@ -46,23 +46,37 @@ function handleSaveApi() {
     description: newApiData.value.description,
     documentation: newApiData.value.documentation,
   })
-  saveToLocalStorage()
+  // saveToLocalStorage()
+  console.log(savedApiDataList.value)
 }
 
-function saveToLocalStorage() {
-  localStorage.setItem(`${newApiData.value.title}`, JSON.stringify(newApiData.value))
-  // const savedApi = JSON.parse(localStorage.getItem(`${newApiData.value.title}`))
-  console.log(localStorage)
+function handleDeleteApi(index) {
+  console.log(savedApiDataList.value)
+  if (index !== -1) {
+    savedApiDataList.value.splice(index, 1)
+  }
 }
-function clearAllLocalStorage() {
-  localStorage.clear()
-  console.log(localStorage)
-}
-function removeFromLocalStorage() {
-  localStorage.removeItem(`${newApiData.value.title}`)
-  console.log('clicked')
-  console.log(localStorage)
-}
+
+// function saveToLocalStorage() {
+//   localStorage.setItem(`${savedApiDataList.value.title}`, JSON.stringify(savedApiDataList.value))
+//    localStorage.setItem(`${newApiData.value.title}`, JSON.stringify(newApiData.value))
+//   const savedApi = JSON.parse(localStorage.getItem(`${newApiData.value.title}`))
+//   console.log(localStorage)
+// }
+
+// function clearAllLocalStorage() {
+//   localStorage.clear()
+//   console.log(localStorage)
+// }
+
+// function removeFromLocalStorage(index) {
+//   const removeItem = JSON.parse(localStorage.getItem(`${index.title}`))
+//   localStorage.removeItem(`${savedApiDataList.value.title}`)
+//   savedApiDataList.value.splice(removeItem, 1)
+//   const itemtoRemove = JSON.parse(localStorage.getItem(`${index.value.title}`))
+//   console.log(localStorage)
+//   console.log(removeItem)
+// }
 const fetchData = () => {
   fetch('https://www.freepublicapis.com/api/random')
     .then((response) => {

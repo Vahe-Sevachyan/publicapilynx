@@ -1,8 +1,8 @@
 <script setup>
 defineProps(['newAPI'])
-const emit = defineEmits(['removeFromLocalStorage'])
-function removeFromLocalStorage() {
-  emit('removeFromLocalStorage')
+const emit = defineEmits(['deleteApi'])
+function handleDeleteAPI() {
+  emit('deleteApi')
 }
 </script>
 
@@ -20,7 +20,7 @@ function removeFromLocalStorage() {
       </div>
       <span><strong>Health:</strong> {{ newAPI.health }}</span>
     </div>
-    <button v-on:click="removeFromLocalStorage(newAPI.title)">Delete</button>
+    <button v-on:click="handleDeleteAPI">Delete</button>
   </div>
 </template>
 
