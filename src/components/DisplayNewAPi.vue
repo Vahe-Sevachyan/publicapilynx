@@ -39,6 +39,7 @@ strong {
 }
 h1 {
   font-size: 28px;
+  margin-right: 10px;
 }
 a {
   text-decoration: underline;
